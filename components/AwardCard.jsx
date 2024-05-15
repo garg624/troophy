@@ -4,26 +4,34 @@ import Image from "next/image"
 import { useEffect } from "react"
 import { useToast } from "./ui/use-toast"
 
-const AwardCard = ({ award, setCart, cart }) => {
+const AwardCard = ({ award, cart, setCart }) => {
   const { toast } = useToast();
 
   useEffect(() => {
     if(cart.length > 0) {
       toast({
-        title: "New Award added to cart !",
-        description: `Award ${award.name} is added to the cart.`
+        title: "New Award added to cart 🎉",
       });
     }
   }, [cart]);
 
   const handleCartClick = () => {
-    setCart(prevCart => [...prevCart, award._id]);
+    let currentCart = JSON.parse(localStorage.getItem('cart'));
+    if(!currentCart.includes(award._id)) {
+      currentCart = [...currentCart,award._id];
+      localStorage.setItem('cart',JSON.stringify(currentCart));
+      setCart(prevCart => [...prevCart, award._id]);
+    }else {
+      toast({
+        title: "Award already in cart 😎.",
+      })
+    }
   };
 
   return (
-    <div className="hover:scale-95 transition-all card w-max h-max bg-base-100 shadow-xl">
+    <div className="hover:scale-95 transition-all card w-max h-max bg-base-100 shadow-xl rounded-none border">
       <figure>
-        <Image alt={`${award.name}-trophy`} src={award.trophyImage} width={200} height={200} />
+        <Image alt={`${award.name}-trophy`} src={award.trophyImage} width={200} height={200} style={{width:"auto", height:"auto"}} />
       </figure>
       <div className="card-body">
         <h2 className="card-title">
@@ -35,7 +43,7 @@ const AwardCard = ({ award, setCart, cart }) => {
           <div className="badge badge-outline">{award.size}</div>
         </div>
         <div className="w-full">
-          <button type="button" className="w-full btn btn-outline" onClick={handleCartClick}>
+          <button type="button" className="w-full btn btn-outline rounded-none" onClick={handleCartClick}>
             <BaggageClaimIcon />
             Add to Cart
           </button>

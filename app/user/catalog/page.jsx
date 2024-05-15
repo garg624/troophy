@@ -1,12 +1,14 @@
 'use client'
 import AwardCard from "@/components/AwardCard"
 import TrophyLoader from "@/components/TrophyLoader";
+import UICartNavbar from "@/components/UICartNavbar";
 import { useEffect, useState } from "react"
 
 const page = () => {
   const [awardsList, setAwardsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [cart, setCart] = useState([]);
+  localStorage.setItem('cart',JSON.stringify(cart));
 
   useEffect(()=> {
     const fetchData = async () => {
@@ -31,12 +33,12 @@ const page = () => {
 
   return (
     <>
-    <p>Place a navbar here for cart and other options</p>
-    <div className="p-4 w-screen flex flex-wrap gap-4">
+    <UICartNavbar cartValue={cart.length} />
+    <div className="p-4 w-screen flex flex-wrap gap-4 overflow-x-hidden">
       {
         awardsList.length > 0 ? 
         awardsList.map((award)=>(
-          <AwardCard setCart={setCart} award={award} key={award._id} cart={cart}/>
+          <AwardCard award={award} key={award._id} cart={cart} setCart={setCart} />
         )) :
         (
           <div className="w-11/12 flex flex-col items-center justify-center">

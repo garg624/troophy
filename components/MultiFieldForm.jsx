@@ -2,7 +2,6 @@
 import { SquareMinusIcon, SquarePlusIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { useToast } from './ui/use-toast';
-import Bill from '@/models/bill';
 
 const MultiFieldForm = ({colums,dateTime}) => {
     const [formFields, setFormFields] = useState([
@@ -72,7 +71,7 @@ const clearFormField = (index) => {
     }
   };
   return (
-    <form onSubmit={handleSubmit} className='w-max flex flex-col gap-4'>
+    <form  className='w-max flex flex-col gap-4'>
         <label htmlFor="orgName" className='text-center'>
             Billed to
             <input id='orgName' className='input input-bordered input-md ml-4' value={orgName} onChange={(e)=>{setOrgName(e.target.value)}}></input>
