@@ -16,7 +16,6 @@ const UICartNavbar = ({cartValue}) => {
           )
         }
       </Link>
-      <p className='font-semibold text-red-500'>Storage is not persistent</p>
     </nav>
   )
 }

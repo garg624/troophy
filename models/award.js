@@ -34,7 +34,7 @@ const AwardSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const Award = mongoose.models.Award || mongoose.model("Award", AwardSchema);
+const Award =  mongoose.model("Award", AwardSchema) || mongoose.models.award;
 
 export default Award;
 

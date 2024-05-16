@@ -7,13 +7,7 @@ import { useToast } from "./ui/use-toast"
 const AwardCard = ({ award, cart, setCart }) => {
   const { toast } = useToast();
 
-  useEffect(() => {
-    if(cart.length > 0) {
-      toast({
-        title: "New Award added to cart 🎉",
-      });
-    }
-  }, [cart]);
+
 
   const handleCartClick = () => {
     let currentCart = JSON.parse(localStorage.getItem('cart'));
@@ -21,6 +15,9 @@ const AwardCard = ({ award, cart, setCart }) => {
       currentCart = [...currentCart,award._id];
       localStorage.setItem('cart',JSON.stringify(currentCart));
       setCart(prevCart => [...prevCart, award._id]);
+      toast({
+        title: "Award added to cart 🎉",
+      })
     }else {
       toast({
         title: "Award already in cart 😎.",

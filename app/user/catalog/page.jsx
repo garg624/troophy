@@ -4,11 +4,16 @@ import TrophyLoader from "@/components/TrophyLoader";
 import UICartNavbar from "@/components/UICartNavbar";
 import { useEffect, useState } from "react"
 
+const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
+
 const page = () => {
   const [awardsList, setAwardsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [cart, setCart] = useState([]);
-  localStorage.setItem('cart',JSON.stringify(cart));
+  const [cart, setCart] = useState(localCart);
+
+  useEffect(()=>{
+    localStorage.setItem('cart',JSON.stringify(cart));
+  },[cart])
 
   useEffect(()=> {
     const fetchData = async () => {
